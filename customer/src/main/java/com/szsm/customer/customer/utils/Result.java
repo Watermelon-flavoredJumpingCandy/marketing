@@ -120,7 +120,7 @@ public class Result<T> implements Serializable {
 
     @Override
     public String toString() {
-        return "HttpResult{" +
+        return "Result{" +
                 "success=" + success +
                 ", code=" + code +
                 ", data=" + data +

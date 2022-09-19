@@ -2,6 +2,7 @@ package com.szsm.customer.customer.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
@@ -10,27 +11,22 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LogAspectHandler {
 
-    @Pointcut("execution(* com.szsm.customer.customer..*.*(..))")
+    @Pointcut("execution(public * com.szsm.customer.customer..*(..))")
     public void pointCut() {
     }
 
-    @Before("pointCut()")
-    public void doBefore(JoinPoint joinPoint) {
-
-    }
-
-    @After("pointCut()")
-    public void doAfter(JoinPoint joinPoint) {
-
-    }
-
-    @AfterReturning(value = "pointCut()", returning = "obj")
-    public Object doAfterReturning(JoinPoint joinPoint, Object obj) {
-        return Result.success(obj);
+    @Around("pointCut()")
+    public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        Object result = proceedingJoinPoint.proceed();
+        return result;
     }
 
     @AfterThrowing(value = "pointCut()", throwing = "throwable")
     public Object afterThrowing(JoinPoint joinPoint, Throwable throwable) {
         return throwable;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Result.success("Hello!"));
     }
 }
