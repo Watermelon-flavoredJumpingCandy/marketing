@@ -2,6 +2,8 @@ package com.szsm.customer.customer.mapper;
 
 import com.szsm.customer.customer.entity.CusBaseInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -9,8 +11,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author baomidou
- * @since 2022-09-16
+ * @since 2022-09-19
  */
+@Repository
 public interface CusBaseInfoMapper extends BaseMapper<CusBaseInfo> {
 
 }

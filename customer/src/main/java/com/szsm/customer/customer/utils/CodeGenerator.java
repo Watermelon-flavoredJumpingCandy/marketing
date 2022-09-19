@@ -26,7 +26,7 @@ public class CodeGenerator {
                             .enableRestStyle();//开启RestController
                     builder.addInclude("cus_base_info"); // 设置需要生成的表名
                 })
-                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                .templateEngine(new FreemarkerTemplateEngine()).templateConfig(builder -> builder.controller("")) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
     }
 }
