@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LogAspectHandler {
 
-    @Pointcut("execution(public * com.szsm.customer.customer..*(..))")
+    @Pointcut("execution(public * com.szsm.customer.customer.controller..*(..))")
     public void pointCut() {
     }
 

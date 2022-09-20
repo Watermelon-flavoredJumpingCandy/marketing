@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sun.xml.internal.fastinfoset.stax.events.Util;
 import com.szsm.customer.customer.dto.QueryCusListByJobNoDto;
 import com.szsm.customer.customer.dto.RemoveCusInfoDto;
 import com.szsm.customer.customer.entity.CusBaseInfo;
@@ -61,6 +62,14 @@ public class CusBaseInfoController {
     @RequestMapping("/updateCusInfo")
     public boolean updateCusInfo(@RequestBody CusBaseInfo cusBaseInfo) {
         log.info("--- CusBaseInfoController - updateCusInfo - cusBaseInfo : " + JSON.toJSONString(cusBaseInfo));
+        cusBaseInfo.setCustUpdatetime(new Date());
+        List<CusBaseInfo> cusList = cusBaseInfoServiceImpl.list(new QueryWrapper<CusBaseInfo>().eq("cust_no", cusBaseInfo.getCustNo()));
+        if (cusList != null && cusList.size() > 0) {
+            CusBaseInfo cusBaseInfo1 = cusList.get(0);
+            if (cusBaseInfo1.getJobNo() != null && !cusBaseInfo1.getJobNo().equals(cusBaseInfo.getJobNo())) {
+                cusBaseInfo.setCustTransfertime(new Date());
+            }
+        }
         return cusBaseInfoServiceImpl.update(cusBaseInfo, new UpdateWrapper<CusBaseInfo>().eq("cust_no", cusBaseInfo.getCustNo()));
     }
 
