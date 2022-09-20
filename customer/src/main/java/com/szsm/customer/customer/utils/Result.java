@@ -1,5 +1,8 @@
 package com.szsm.customer.customer.utils;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.szsm.customer.customer.entity.CusBaseInfo;
+
 import java.io.Serializable;
 
 public class Result<T> implements Serializable {
@@ -11,7 +14,7 @@ public class Result<T> implements Serializable {
     /**
      * 响应状态码
      */
-    private Integer code;
+    private String code;
     /**
      * 响应数据
      */
@@ -27,7 +30,7 @@ public class Result<T> implements Serializable {
      * 无参构造器(构造器私有，外部不可以直接创建)
      */
     private Result() {
-        this.code = 000000;
+        this.code = "000000";
         this.success = true;
     }
 
@@ -37,7 +40,7 @@ public class Result<T> implements Serializable {
      * @param obj
      */
     private Result(T obj) {
-        this.code = 000000;
+        this.code = "000000";
         this.data = obj;
         this.success = true;
     }
@@ -52,6 +55,7 @@ public class Result<T> implements Serializable {
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
     }
+
     // 构造器结束
 
     /**
@@ -94,11 +98,11 @@ public class Result<T> implements Serializable {
         this.success = success;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -126,5 +130,9 @@ public class Result<T> implements Serializable {
                 ", data=" + data +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Result.success(new Page<CusBaseInfo>()));
     }
 }
