@@ -5,6 +5,7 @@
     <modules>
         <module>customer</module>
         <module>managers</module>
+        <module>common</module>
     </modules>
     <groupId>com.szsm.springcloudalibaba</groupId>
     <artifactId>marketing</artifactId>
