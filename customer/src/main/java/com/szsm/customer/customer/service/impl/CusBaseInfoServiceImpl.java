@@ -16,7 +16,8 @@ import org.springframework.stereotype.Service;
  * @since 2022-09-19
  */
 @Service
-public class CusBaseInfoServiceImpl extends ServiceImpl<CusBaseInfoMapper, CusBaseInfo> implements ICusBaseInfoService {
+public class CusBaseInfoServiceImpl extends ServiceImpl
+        <CusBaseInfoMapper, CusBaseInfo> implements ICusBaseInfoService {
     @Autowired
     private CusBaseInfoMapper cusBaseInfoMapper;
 }

@@ -1,16 +1,16 @@
-package com.szsm.customer.customer;
+package com.szsm.device;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.szsm.customer.customer.mapper")
-public class CustomerApplication {
+@MapperScan("com.szsm.device.mapper")
+public class DeviceApplication {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(CustomerApplication.class, args);
+        SpringApplication.run(DeviceApplication.class, args);
     }
 
 }
