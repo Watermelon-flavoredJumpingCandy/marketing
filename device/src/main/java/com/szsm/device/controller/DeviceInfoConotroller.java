@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.szsm.device.MD5Util;
 import com.szsm.device.entity.DeviceInfo;
 import com.szsm.device.service.IDeviceInfoService;
 import com.szsm.device.service.impl.DeviceInfoServiceImpl;
@@ -54,9 +55,10 @@ public class DeviceInfoConotroller {
         deviceInfo.setSeq(Integer.valueOf(map.get("seq")));
         deviceInfo.setJobNo(map.get("jobNo"));
         deviceInfo.setAuthType(map.get("authType"));
-        deviceInfo.setPassword(map.get("password"));
+        deviceInfo.setPassword(MD5Util.md5(map.get("password")));
         deviceInfo.setDeviceNo(map.get("deviceNo"));
-        deviceInfo.setCreateTime(toLocalDateTime(map.get("createTime"),"yyyy-MM-dd HH:mm:ss"));
+        deviceInfo.setCreateTime(
+                toLocalDateTime(map.get("createTime"), "yyyy-MM-dd HH:mm:ss"));
 
         System.out.println("保存数据成功");
         return deviceInfoServiceImpl.save(deviceInfo);
@@ -65,6 +67,9 @@ public class DeviceInfoConotroller {
 
     @RequestMapping("/updateDeviceInfo")
     public boolean UpdateDeviceInfo(@RequestBody DeviceInfo deviceInfo){
+
+     deviceInfo.setPassword(MD5Util.md5(deviceInfo.getPassword()));
+
         return deviceInfoServiceImpl.update(
            deviceInfo,new UpdateWrapper<DeviceInfo>().
                         eq("job_no",deviceInfo.getJobNo()));
