@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-09-19
  */
 public interface ICusBaseInfoService extends IService<CusBaseInfo> {
-
+    public Integer getCustNoSeq();
 }
