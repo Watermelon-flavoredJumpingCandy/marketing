@@ -1,5 +1,6 @@
 package com.szsm.customer.customer.utils;
 
+import com.szsm.common.entity.ResultData;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -27,6 +28,6 @@ public class LogAspectHandler {
     }
 
     public static void main(String[] args) {
-        System.out.println(Result.success("Hello!"));
+        System.out.println(ResultData.success("Hello!"));
     }
 }
