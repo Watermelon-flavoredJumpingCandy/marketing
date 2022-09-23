@@ -1,4 +1,4 @@
-package com.szsm.customer.customer.utils;
+package com.szsm.device.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.szsm.common.entity.ResultData;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LogAspectHandler {
 
-    @Pointcut("execution(public * com.szsm.customer.customer.controller..*(..))")
+    @Pointcut("execution(public * com.szsm.device.controller..*(..))")
     public void pointCut() {
     }
 
