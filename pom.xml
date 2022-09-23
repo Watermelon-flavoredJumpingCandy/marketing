@@ -7,6 +7,7 @@
         <module>managers</module>
         <module>product</module>
         <module>device</module>
+        <module>common</module>
     </modules>
     <groupId>com.szsm.springcloudalibaba</groupId>
     <artifactId>marketing</artifactId>

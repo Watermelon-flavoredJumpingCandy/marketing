@@ -20,4 +20,9 @@ public class CusBaseInfoServiceImpl extends ServiceImpl
         <CusBaseInfoMapper, CusBaseInfo> implements ICusBaseInfoService {
     @Autowired
     private CusBaseInfoMapper cusBaseInfoMapper;
+
+    @Override
+    public Integer getCustNoSeq() {
+        return cusBaseInfoMapper.getCustNoSeq();
+    }
 }

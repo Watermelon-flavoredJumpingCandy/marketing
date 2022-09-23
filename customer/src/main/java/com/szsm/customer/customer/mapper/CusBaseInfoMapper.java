@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CusBaseInfoMapper extends BaseMapper<CusBaseInfo> {
-
+    Integer getCustNoSeq();
 }

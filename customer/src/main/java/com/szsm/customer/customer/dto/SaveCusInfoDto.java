@@ -7,8 +7,6 @@ import java.util.Date;
 
 @Data
 public class SaveCusInfoDto {
-    @NotNull(message = "核心客户号不能为空")
-    private String custNo;
     private String jobNo;
     private String custName;
     private String custPhonenumber;

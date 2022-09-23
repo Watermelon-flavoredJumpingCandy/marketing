@@ -4,21 +4,20 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sun.xml.internal.fastinfoset.stax.events.Util;
 import com.szsm.customer.customer.dto.QueryCusListByJobNoDto;
 import com.szsm.customer.customer.dto.RemoveCusInfoDto;
+import com.szsm.customer.customer.dto.SaveCusInfoDto;
+import com.szsm.customer.customer.dto.UpdateCusInfoDto;
 import com.szsm.customer.customer.entity.CusBaseInfo;
 import com.szsm.customer.customer.service.ICusBaseInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,25 +51,31 @@ public class CusBaseInfoController {
 
     // 新增客户信息
     @RequestMapping("/saveCusInfo")
-    public boolean saveCusInfo(@RequestBody CusBaseInfo cusBaseInfo) {
-        log.info("--- CusBaseInfoController - saveCusInfo - cusBaseInfo : " + JSON.toJSONString(cusBaseInfo));
-        cusBaseInfo.setCustCreatetime(new Date());
+    public boolean saveCusInfo(@RequestBody SaveCusInfoDto saveCusInfoDto) {
+        log.info("--- CusBaseInfoController - saveCusInfo - cusBaseInfo : " + JSON.toJSONString(saveCusInfoDto));
+        saveCusInfoDto.setCustCreatetime(new Date());
+        CusBaseInfo cusBaseInfo = new CusBaseInfo();
+        BeanUtils.copyProperties(saveCusInfoDto, cusBaseInfo);
+        Integer cusNoSeq = cusBaseInfoServiceImpl.getCustNoSeq();
+        cusBaseInfo.setCustNo(cusNoSeq.toString());
         return cusBaseInfoServiceImpl.save(cusBaseInfo);
     }
 
     // 更新客户信息
     @RequestMapping("/updateCusInfo")
-    public boolean updateCusInfo(@RequestBody CusBaseInfo cusBaseInfo) {
-        log.info("--- CusBaseInfoController - updateCusInfo - cusBaseInfo : " + JSON.toJSONString(cusBaseInfo));
-        cusBaseInfo.setCustUpdatetime(new Date());
-        List<CusBaseInfo> cusList = cusBaseInfoServiceImpl.list(new QueryWrapper<CusBaseInfo>().eq("cust_no", cusBaseInfo.getCustNo()));
+    public boolean updateCusInfo(@RequestBody UpdateCusInfoDto updateCusInfoDto) {
+        log.info("--- CusBaseInfoController - updateCusInfo - cusBaseInfo : " + JSON.toJSONString(updateCusInfoDto));
+        updateCusInfoDto.setCustUpdatetime(new Date());
+        List<CusBaseInfo> cusList = cusBaseInfoServiceImpl.list(new QueryWrapper<CusBaseInfo>().eq("cust_no", updateCusInfoDto.getCustNo()));
         if (cusList != null && cusList.size() > 0) {
             CusBaseInfo cusBaseInfo1 = cusList.get(0);
-            if (cusBaseInfo1.getJobNo() != null && !cusBaseInfo1.getJobNo().equals(cusBaseInfo.getJobNo())) {
-                cusBaseInfo.setCustTransfertime(new Date());
+            if (cusBaseInfo1.getJobNo() != null && !cusBaseInfo1.getJobNo().equals(updateCusInfoDto.getJobNo())) {
+                updateCusInfoDto.setCustTransfertime(new Date());
             }
         }
-        return cusBaseInfoServiceImpl.update(cusBaseInfo, new UpdateWrapper<CusBaseInfo>().eq("cust_no", cusBaseInfo.getCustNo()));
+        CusBaseInfo cusBaseInfo = new CusBaseInfo();
+        BeanUtils.copyProperties(updateCusInfoDto, cusBaseInfo);
+        return cusBaseInfoServiceImpl.update(cusBaseInfo, new UpdateWrapper<CusBaseInfo>().eq("cust_no", updateCusInfoDto.getCustNo()));
     }
 
     // 删除客户信息

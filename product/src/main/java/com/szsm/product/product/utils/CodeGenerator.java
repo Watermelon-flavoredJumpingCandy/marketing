@@ -1,4 +1,4 @@
-package util;
+package com.szsm.product.product.utils;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
