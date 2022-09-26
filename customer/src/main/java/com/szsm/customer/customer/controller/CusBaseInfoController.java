@@ -44,7 +44,6 @@ public class CusBaseInfoController {
     // 通过客户经理工号查询客户列表
     @RequestMapping("/queryCusListByJobNo")
     public Page<CusBaseInfo> queryCusListByJobNo(@RequestBody @Valid QueryCusListByJobNoDto queryCusListByJobNoDto) {
-        log.info("--- CusBaseInfoController - saveCusInfo - cusBaseInfo : " + JSON.toJSONString(queryCusListByJobNoDto));
         Page<CusBaseInfo> page = new Page<CusBaseInfo>(queryCusListByJobNoDto.getCurrentPage(), queryCusListByJobNoDto.getSize());
         return cusBaseInfoServiceImpl.page(page, new QueryWrapper<CusBaseInfo>().eq("job_no", queryCusListByJobNoDto.getJobNo()));
     }
@@ -52,7 +51,6 @@ public class CusBaseInfoController {
     // 新增客户信息
     @RequestMapping("/saveCusInfo")
     public boolean saveCusInfo(@RequestBody SaveCusInfoDto saveCusInfoDto) {
-        log.info("--- CusBaseInfoController - saveCusInfo - cusBaseInfo : " + JSON.toJSONString(saveCusInfoDto));
         saveCusInfoDto.setCustCreatetime(new Date());
         CusBaseInfo cusBaseInfo = new CusBaseInfo();
         BeanUtils.copyProperties(saveCusInfoDto, cusBaseInfo);
@@ -64,7 +62,6 @@ public class CusBaseInfoController {
     // 更新客户信息
     @RequestMapping("/updateCusInfo")
     public boolean updateCusInfo(@RequestBody UpdateCusInfoDto updateCusInfoDto) {
-        log.info("--- CusBaseInfoController - updateCusInfo - cusBaseInfo : " + JSON.toJSONString(updateCusInfoDto));
         updateCusInfoDto.setCustUpdatetime(new Date());
         List<CusBaseInfo> cusList = cusBaseInfoServiceImpl.list(new QueryWrapper<CusBaseInfo>().eq("cust_no", updateCusInfoDto.getCustNo()));
         if (cusList != null && cusList.size() > 0) {
@@ -81,7 +78,6 @@ public class CusBaseInfoController {
     // 删除客户信息
     @RequestMapping("/removeCusInfo")
     public boolean removeCusInfo(@RequestBody @Valid RemoveCusInfoDto removeCusInfoDto) {
-        log.info("--- CusBaseInfoController - removeCusInfo - removeCusInfoDto : " + JSON.toJSONString(removeCusInfoDto));
         return cusBaseInfoServiceImpl.remove(new QueryWrapper<CusBaseInfo>().eq("cust_no", removeCusInfoDto.getCustNo()));
     }
 }
