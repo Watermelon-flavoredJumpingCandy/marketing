@@ -1,4 +1,4 @@
-package com.szsm.customer.customer.config;
+package com.szsm.managers.managers.config;
 
 /**
  * @author xc
