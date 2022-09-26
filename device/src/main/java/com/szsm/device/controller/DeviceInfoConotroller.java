@@ -38,7 +38,7 @@ public class DeviceInfoConotroller {
         return "test!";
     }
 
-    // 通过客户经理工号查询客户列表
+    // 通过客户经理工号查询登录信息列表
     @RequestMapping("/queryDeviceByJobNo")
     public Page<DeviceInfo> queryDeviceByJobNo(@RequestBody DeviceInfo deviceInfo) {
 
@@ -48,6 +48,7 @@ public class DeviceInfoConotroller {
 
     }
 
+    //保存登录信息
     @RequestMapping("/saveDeviceInfo")
     public boolean saveDeviceInfo(@RequestBody Map<String,String> map){
         System.out.println(map.get("seq"));
@@ -65,6 +66,7 @@ public class DeviceInfoConotroller {
 
     }
 
+    //修改登录密码
     @RequestMapping("/updateDeviceInfo")
     public boolean UpdateDeviceInfo(@RequestBody DeviceInfo deviceInfo){
 
@@ -76,12 +78,14 @@ public class DeviceInfoConotroller {
     }
 
 
+    //根据工号删除登录信息
     @RequestMapping("/deleteDeviceInfoByJobNo")
     public boolean deleteDeviceInfoByJobNo(@RequestBody DeviceInfo deviceInfo){
         return deviceInfoServiceImpl.remove(
                 new QueryWrapper<DeviceInfo>().eq("job_no",deviceInfo.getJobNo()));
     }
 
+    //日期格式转换
     public static LocalDateTime toLocalDateTime(String dateTime, String format) {
         if (StringUtils.isEmpty(dateTime)) {
             return null;
